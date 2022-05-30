@@ -1,0 +1,39 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+trim_trailing_whitespace = true
+
+[*.{java,kt,kts}]
+indent_size = 4
+tab_width = 4
+ij_continuation_indent_size = 4
+ij_any_class_annotation_wrap = split_into_lines
+ij_any_field_annotation_wrap = split_into_lines
+ij_any_method_annotation_wrap = split_into_lines
+ij_any_parameter_annotation_wrap = split_into_lines
+ij_any_variable_annotation_wrap = split_into_lines
+
+[*.java]
+ij_java_use_single_class_imports = true
+
+# https://github.com/pinterest/ktlint#manually-update-editorconfig
+
+[*.{kt,kts}]
+ij_kotlin_align_multiline_parameters = false
+ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
+ij_kotlin_keep_blank_lines_in_declarations = 1
+ij_kotlin_keep_blank_lines_in_code = 1
+ij_kotlin_keep_blank_lines_before_right_brace = 0
+ij_kotlin_line_comment_at_first_column = false
+ij_kotlin_line_comment_add_space = true
+ij_kotlin_name_count_to_use_star_import = 1000
+ij_kotlin_name_count_to_use_star_import_for_members = 1000
+
+# https://github.com/pinterest/ktlint#disable-rules
+# https://github.com/pinterest/ktlint/issues/1341
+
+disabled_rules = wrapping, experimental:function-signature
