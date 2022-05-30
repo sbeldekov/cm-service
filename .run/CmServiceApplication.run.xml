@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="CmServiceApplication" type="SpringBootApplicationConfigurationType"
+                   factoryName="Spring Boot">
+        <option name="ACTIVE_PROFILES" value="dev"/>
+        <module name="cm-service.backend.main"/>
+        <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.cmservice.backend.CmServiceApplication"/>
+        <option name="VM_PARAMETERS"
+                value="-Dcontext.initializer.classes=com.example.cmservice.common.config.TestcontainersContextInitializer"/>
+        <method v="2">
+            <option name="Make" enabled="true"/>
+        </method>
+    </configuration>
+</component>

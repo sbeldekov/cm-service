@@ -1,0 +1,38 @@
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+  liquibase:
+    enabled: false
+  main:
+    banner-mode: off
+    # if lazy initialization enabled
+    #   then some infrastructure is lazy too
+    #   i.e. @ConfigurationProperties validation does not work as expected
+    # lazy-initialization: true
+  mvc:
+    log-request-details: true
+    log-resolved-exception: true
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+logging:
+  level:
+    root: info
+    org.springframework.web: debug
+    org.springframework.retry: debug
+    com.example: debug
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+management:
+  endpoints:
+    enabled-by-default: false

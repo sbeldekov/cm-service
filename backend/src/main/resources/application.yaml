@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: cm-service-backend
+  jpa:
+    open-in-view: false
+    generate-ddl: false
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      org.hibernate.envers:
+        revision_on_collection_change: false
+        store_data_at_delete: true
+  jackson:
+    deserialization:
+      use_big_decimal_for_floats: true
+      use_long_for_ints: true
+      fail_on_ignored_properties: true
+      fail_on_null_for_primitives: true
+      fail_on_numbers_for_enums: true
+      fail_on_trailing_tokens: true
+      accept_float_as_int: false
+      adjust_dates_to_context_time_zone: false
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  batch:
+    jdbc:
+      initialize-schema: never
+feign:
+  autoconfiguration:
+    jackson:
+      enabled: true
+management:
+  server:
+    ssl:
+      enabled: false
+server:
+  error:
+    whitelabel:
+      enabled: false
+  servlet:
+    jsp:
+      registered: false
+  shutdown: graceful
+  ssl:
+    enabled: false
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+  liquibase:
+    contexts: dev
+  mvc:
+    log-request-details: true
+    log-resolved-exception: true
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+logging:
+  level:
+    root: info
+    org.springframework.web: debug
+    org.springframework.retry: debug
+    com.example: debug
+springdoc:
+  group-configs:
+    - group: company-api
+      paths-to-match:
+        - /company
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - env
+          - health
+          - prometheus
+  server:
+    port: 9090
+server:
+  port: 8080

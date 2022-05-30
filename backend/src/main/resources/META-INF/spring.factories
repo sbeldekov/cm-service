@@ -1,0 +1,4 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.example.cmservice.common.config.CheckActiveProfilesEnvironmentPostProcessor
+org.springframework.context.ApplicationListener=\
+  com.example.cmservice.common.config.DefaultLocaleApplicationListener

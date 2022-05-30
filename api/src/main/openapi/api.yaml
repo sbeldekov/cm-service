@@ -1,0 +1,190 @@
+openapi: 3.0.3
+info:
+  title: cm-service
+  version: 1.0.0
+  description: |
+    cm-service
+    https://app.swaggerhub.com/apis/sbeldekov/cm-service/1.0.0
+servers:
+  - url: http://localhost:8080
+    description: local
+paths:
+  /company:
+    post:
+      tags:
+        - company
+      summary: Add a new company
+      operationId: addCompany
+      requestBody:
+        $ref: '#/components/requestBodies/CompanyCreateDto'
+      responses:
+        "201":
+          description: Company created
+          headers:
+            Location:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyDto'
+        "400":
+          description: Invalid input
+        "409":
+          description: Company exists
+    put:
+      tags:
+        - company
+      summary: Update an existing company
+      operationId: updateCompany
+      requestBody:
+        $ref: '#/components/requestBodies/CompanyDto'
+      responses:
+        "200":
+          description: Company updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyDto'
+        "204":
+          description: Company not found
+        "400":
+          description: Invalid input
+        "409":
+          description: Company exists
+    get:
+      tags:
+        - company
+      summary: Get companies
+      operationId: getCompanies
+      responses:
+        "200":
+          description: Companies found
+          content:
+            application/json:
+              schema:
+                type: array
+                uniqueItems: true
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/CompanyDto'
+        "204":
+          description: Companies not found
+        "400":
+          description: Invalid input
+    delete:
+      tags:
+        - company
+      summary: Delete companies
+      operationId: deleteCompanies
+      responses:
+        "200":
+          description: Companies deleted
+        "204":
+          description: Companies not found
+        "400":
+          description: Invalid input
+  /company/{companyId}:
+    get:
+      tags:
+        - company
+      summary: Find a company by ID
+      operationId: getCompanyById
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of a company to find
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            nullable: false
+      responses:
+        "200":
+          description: Company found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyDto'
+        "204":
+          description: Company not found
+        "400":
+          description: Invalid input
+    delete:
+      tags:
+        - company
+      summary: Delete a company by ID
+      operationId: deleteCompanyById
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of a company to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            nullable: false
+      responses:
+        "200":
+          description: Company deleted
+        "204":
+          description: Company not found
+        "400":
+          description: Invalid input
+components:
+  schemas:
+    CompanyCreateDto:
+      nullable: false
+      writeOnly: true
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          nullable: false
+    CompanyDto:
+      nullable: false
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: false
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          nullable: false
+        created:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+  requestBodies:
+    CompanyCreateDto:
+      description: Company create object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CompanyCreateDto'
+      required: true
+    CompanyDto:
+      description: Company object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CompanyDto'
+      required: true
